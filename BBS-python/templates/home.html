@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="with=device-width,initial-scale=1">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <title>home</title>
+</head>
+<body>
+<!--顶部导航栏--->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand glyphicon glyphicon-home" href="/home/">BBS</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">博客<span class="sr-only">(current)</span></a></li>
+        <li><a href="#">文章</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="搜索">
+        </div>
+        <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+          {% if request.user.is_authenticated %}
+              <li><a href="#">{{ request.user.username }}</a></li>
+              <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多操作<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">修改密码</a></li>
+            <li><a href="#">修改头像</a></li>
+            <li><a href="#">后台管理</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'logout' %}">退出登陆</a></li>
+          </ul>
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <h1 class="text-center">修改密码</h1>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="form-group">
+                                <label for="">用户名</label>
+                                <!--因为修改密码里面用户名不需要，所以这里加个disabled--->
+                                <input type="text" disabled value="{{ request.user.username }}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                 <label for="">原密码</label>
+                                <input type="password" id="id_old_password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                 <label for="">新密码</label>
+                                <input type="password" id="id_new_password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                 <label for="">确认密码</label>
+                                <input type="password" id="id_confirm_password" class="form-control">
+                            </div>
+                            <div class="modal-footer">
+                             <span style="color: red" id="password_error"></span>
+                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                             <button type="button" class="btn btn-primary" id="id_adit">修改</button>
+                             </div><br><br>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </li>
+          {% else %}
+               <li><a href="{% url 'reg' %}">注册</a></li>
+               <li><a href="{% url 'login' %}">登录</a></li>
+          {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<!--下主体部分--->
+<div class="container-fluid">
+    <!--左侧板块--->
+    <div class="col-md-2">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">广告部分1</h3>
+          </div>
+          <div class="panel-body">
+            因为网络，地球如村！出自：第四媒体
+          </div>
+        </div>
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">广告部分2</h3>
+          </div>
+          <div class="panel-body">
+            抓紧联系我们吆~31253645756
+          </div>
+        </div>
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">广告部分3</h3>
+          </div>
+          <div class="panel-body">
+            时代在变，时间在变，不变的是我们的关怀！
+          </div>
+        </div>
+    </div>
+    <!--中间板块--->
+    <div class="col-md-8">
+        <ul class="media-list">
+          {% for article_obj in page_queryset %}
+                <li class="media">
+                    <h4 class="media-heading"><a href="#">{{ article_obj.title }}</a></h4>
+                    <div class="media-left">
+                      <a href="#">
+                          <!--src="/media/{{ article_obj.blog.userinfo.avatar }}"这个地方在前端查看源码看它的图片路径，看缺啥，这边只缺一个media前缀，所以在前面这样添加就可以访问了---->
+                        <img class="media-object" src="/media/{{ article_obj.blog.userinfo.avatar }}" style="width: 50px; height: 50px;" alt="...">
+                      </a>
+                    </div>
+                    <div class="media-body">
+                        {{ article_obj.desc }}
+                    </div>
+                    <br>
+{#                烟雨星空 发布于 2020-06-23 20:01 评论(0)阅读(23)#}
+                  <div>
+                      <span><a href="/{{ article_obj.blog.userinfo.username }}/">{{ article_obj.blog.userinfo.username }}&nbsp;</a></span>
+                      <span>发布于&nbsp;</span>
+                      <span>{{ article_obj.create_time|date:'Y-m-d' }}&nbsp;</span>
+                      <span><span class="fa fa-commenting-o"></span>评论({{ article_obj.comment_num }})&nbsp;</span>
+                      <span><span class="fa fa-thumbs-o-up"></span>点赞（{{ article_obj.up_num }}）</span>
+                  </div>
+                </li>
+              <hr>
+          {% endfor %}
+        </ul>
+    </div>
+    <!--右侧板块--->
+    <div class="col-md-2">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">广告部分4</h3>
+          </div>
+          <div class="panel-body">
+            因为网络，地球如村！出自：第四媒体
+          </div>
+        </div>
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">广告部分5</h3>
+          </div>
+          <div class="panel-body">
+            抓紧联系我们吆~31253645756
+          </div>
+        </div>
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">广告部分6</h3>
+          </div>
+          <div class="panel-body">
+            时代在变，时间在变，不变的是我们的关怀！
+          </div>
+        </div>
+    </div>
+</div>
+
+<!--底部分页 -->
+<div class="right-page text-center">
+    <nav aria-label="Page navigation"></nav>
+    {{ page_obj.page_html|safe }}
+</div>
+
+
+
+
+<script>
+    $('#id_adit').click(function () {
+        $.ajax({
+            url:'/set_password/',
+            type:'post',
+            data:{
+                'old_password':$('#id_old_password').val(),
+                'new_password':$('#id_new_password').val(),
+                'confirm_password':$('#id_confirm_password').val(),
+                'csrfmiddlewaretoken':'{{ csrf_token }}'
+            },
+            success:function (args) {
+                if(args.code==1000){
+                    //可以选择跳到登陆页面，也可以选择刷新一下
+                    window.location.href='/login/'
+                    {#window.location.reload()  刷新#}
+                }else{
+                    $('#password_error').text(args.msg)
+                    {#alert(args.msg)#}
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>
